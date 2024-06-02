@@ -33,11 +33,17 @@ namespace ChronoCount2
         }
         internal override void DisplayPage() // displays selected page 
         {
+            Display.BeginUpdate();
+            Display.SuspendLayout();
+
             Display.Items.Clear();
             foreach (TimeStamp entries in pages[pageIndex])
             {
-                    Display.Items.Add(entries.ToLongDisplay());
+                Display.Items.Add(entries.ToLongDisplay());
             }
+
+            Display.ResumeLayout(true);
+            Display.EndUpdate();
         }
 
         // Assigns Controls

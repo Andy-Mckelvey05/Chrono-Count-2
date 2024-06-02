@@ -118,6 +118,7 @@
             Display.Location = new Point(19, 134);
             Display.Margin = new Padding(4, 3, 4, 3);
             Display.Name = "Display";
+            Display.SelectionMode = SelectionMode.None;
             Display.Size = new Size(495, 28);
             Display.TabIndex = 32;
             Display.TabStop = false;
@@ -175,7 +176,7 @@
             // 
             // GameTime
             // 
-            GameTime.Interval = 200;
+            GameTime.Interval = 500;
             GameTime.Tick += GameTime_Tick;
             // 
             // HomePageLite
@@ -183,7 +184,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(64, 64, 64);
-            ClientSize = new Size(529, 176);
+            ClientSize = new Size(534, 182);
             Controls.Add(PageDisplay);
             Controls.Add(TurnLeftBTN);
             Controls.Add(TurnRightBTN);
@@ -193,6 +194,7 @@
             Controls.Add(RemoveBTN);
             Controls.Add(CreateBTN);
             Controls.Add(Display);
+            DoubleBuffered = true;
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Icon = (Icon)resources.GetObject("$this.Icon");
             Margin = new Padding(4, 3, 4, 3);

@@ -79,7 +79,7 @@
         public string ToLongDisplay() // Returns a basic string with minimal formatting 
         {
             string spanDisplay = GetMessage();
-            string dateString = date.ToString("ddd dd MMM yyyy");
+            string dateString = date.ToString("ddd dd MMM yyyy").Replace("Sept", "Sep"); ;
             string formattedName = FormatName();
 
             string[] space = [

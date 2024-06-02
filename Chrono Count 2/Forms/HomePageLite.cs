@@ -30,13 +30,19 @@
                 GameTime = GameTime
             };
         }
-        internal override void DisplayPage() // shows the lite display 
+        internal override void DisplayPage() // displays selected page 
         {
-            formItems.Display.Items.Clear();
+            Display.BeginUpdate();
+            Display.SuspendLayout();
+
+            Display.Items.Clear();
             foreach (TimeStamp entries in pages[pageIndex])
             {
-                formItems.Display.Items.Add(entries.ToShortDisplay());
+                Display.Items.Add(entries.ToShortDisplay());
             }
+
+            Display.ResumeLayout(true);
+            Display.EndUpdate();
         }
 
         // Assigns Controls
