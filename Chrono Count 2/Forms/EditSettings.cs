@@ -1,6 +1,6 @@
 ﻿using ChronoCount2.Forms;
 using Microsoft.VisualBasic;
-using Newtonsoft.Json;
+using System.Text.Json;
 
 namespace ChronoCount2
 {
@@ -143,7 +143,7 @@ namespace ChronoCount2
                     backColour = GetRGB(BackColourDisplay.BackColor)
                 };
 
-                string newSettings = JsonConvert.SerializeObject(newSetting);
+                string newSettings = JsonSerializer.Serialize(newSetting);
 
                 SaveSettings(newSettings);
                 EditSetting.Text = "Click to Edit Settings";

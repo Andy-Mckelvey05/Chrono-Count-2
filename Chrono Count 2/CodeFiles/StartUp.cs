@@ -1,15 +1,17 @@
-﻿using ChronoCount2.CodeFiles;
-using Newtonsoft.Json;
+﻿using Chrono_Count_2.Properties;
+using ChronoCount2.CodeFiles;
+using System.Text.Json;
+
 
 namespace ChronoCount2
 {
     public class Settings // contains the attributes for settings
     {
-        public bool liteMode;
-        public int maxPerPage;
-        public required int[] foreColour;
-        public required int[] midColour;
-        public required int[] backColour;
+        public bool liteMode { get; set; }
+        public int maxPerPage { get; set; }
+        public required int[] foreColour { get; set; }
+        public required int[] midColour { get; set; }
+        public required int[] backColour { get; set; }
     }
     public class StartUp
     {
@@ -44,8 +46,7 @@ namespace ChronoCount2
                 midColour = [160, 204, 250],
                 backColour = [128, 128, 255]
             };
-
-            return JsonConvert.SerializeObject(defaultSetting);
+            return JsonSerializer.Serialize(defaultSetting);
         }
         private void VerifyFilePath() // Create file if it does not exist yet 
         {
@@ -77,35 +78,51 @@ namespace ChronoCount2
             }
         }
 
-        // Getters and Setters:
-        public void ValidateSettings(Settings settings) 
+        // Json Verification
+        public bool InvalidColours(Settings settings) // Returns True if the Jsons colours are INvalid
         {
             try 
             {
-                bool valid_maxPerPage = !(settings.maxPerPage < 1 || settings.maxPerPage > 99);
-                bool valid_foreColour = settings.foreColour.Length == 3; // Ensures the element is an array with [0, 1, 2]
-                bool valid_midColour = settings.midColour.Length == 3;
-                bool valid_backColour = settings.backColour.Length == 3;
-
-                bool validbools = valid_maxPerPage && valid_foreColour && valid_midColour && valid_backColour;
-                if (!validbools) { throw new Exception("Invalid JSON Error"); }
-
-                // Encures each RGB value is 
                 int[][] colours = [settings.foreColour, settings.midColour, settings.backColour];
-                foreach (var colour in colours) 
+                foreach (var colour in colours)
                 {
-                    foreach (var RGB in colour) 
+                    if (colour.Length != 3) { return true; }
+                    foreach (int RGB in colour)
                     {
-                        if (RGB < 0 || RGB > 255) { throw new Exception("Invalid JSON Error"); }
+                        if (RGB < 0 || RGB > 255) { return true; }
                     }
                 }
+                return false;
+            }
+            catch 
+            { 
+                return true;
+            }
+        }
+        public bool ValidateSettings(string json, Settings settings)  // Returns true if the json has valid data 
+        {
+            bool lightModeInvalid;
+            bool maxPerPageInvalid;
+            bool coloursInvalid;
+            try 
+            {
+                lightModeInvalid = json.Substring(2, 8) != "liteMode";
+                maxPerPageInvalid = (settings.maxPerPage < 1 || settings.maxPerPage > 99);
+                coloursInvalid = InvalidColours(settings);
             }
             catch 
             {
-                // Throws exeption if the code abouve crashes, i.e .Length == 3 will crash if its not an array
-                throw new Exception("Invalid JSON Error");
+                return false;
             }
+
+            if (lightModeInvalid || maxPerPageInvalid || coloursInvalid)
+            {
+                return false;
+            }
+            return true;
         }
+
+        // Getters and Setters:
         public Settings GetSettingsJSON() // Gets the Current settings for the JSON 
         {
             string json;
@@ -114,18 +131,19 @@ namespace ChronoCount2
                 json = readSettings.ReadToEnd() ?? SetUpDefaultJSON();
             };
 
+            Settings settings;
             try
             {
-                Settings settings = JsonConvert.DeserializeObject<Settings>(json)!;
-                ValidateSettings(settings); //forces an Error if the JSON has incorrect values
-                return settings;
+                settings = JsonSerializer.Deserialize<Settings>(json)!;
+                if (!ValidateSettings(json, settings)) { throw new Exception("Invalid JSON Error"); }
             }
             catch // Returns the default settings if it cant read the Json
             {
                 MessageBox.Show("Cannot Read Settings, Restoring to Default Settings", "Invalid JSON Error");
-                SetSettingsJSON(SetUpDefaultJSON());
-                return JsonConvert.DeserializeObject<Settings>(SetUpDefaultJSON())!;
+                SetSettingsJSON(SetUpDefaultJSON()); // retuns the file to default settings
+                settings = JsonSerializer.Deserialize<Settings>(SetUpDefaultJSON())!; // Sets the current runtime to default
             }
+            return settings;
         }
         public void SetSettingsJSON(string newSettings) // Sets the JSON to have custom inputted questions 
         {
