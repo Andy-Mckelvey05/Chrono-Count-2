@@ -66,7 +66,7 @@ namespace ChronoCount2
                     Chrono_Count_2.Properties.Settings.Default.dictPath = newFilePath;
                     Chrono_Count_2.Properties.Settings.Default.Save();
 
-                    using (var makeFile = new StreamWriter(newFilePath + @"\ChronoCount2.csv")) { };
+                    using (var makeFile = new StreamWriter(newFilePath + @"\ChronoCount2.csv",true)) { }; // Append set to true so user can keep data
                     using (var makeFile = new StreamWriter(newFilePath + @"\Settings.json")) 
                     {
                         string defaultJson = SetUpDefaultJSON();
