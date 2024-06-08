@@ -29,15 +29,12 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditSettings));
-            FilePathDisplay = new TextBox();
-            label1 = new Label();
             SettingGB = new GroupBox();
             BackColourBorder = new Panel();
             BackColourDisplay = new TextBox();
             BackColourEdit = new Button();
             MidColourEdit = new Button();
             ForeColourEdit = new Button();
-            label2 = new Label();
             BackColourLabel = new Label();
             MidColourBorder = new Panel();
             MidColourDisplay = new TextBox();
@@ -56,39 +53,12 @@
             ForeColourBorder.SuspendLayout();
             SuspendLayout();
             // 
-            // FilePathDisplay
-            // 
-            FilePathDisplay.BackColor = Color.Silver;
-            FilePathDisplay.Font = new Font("Consolas", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            FilePathDisplay.Location = new Point(8, 266);
-            FilePathDisplay.Margin = new Padding(4, 3, 4, 3);
-            FilePathDisplay.Multiline = true;
-            FilePathDisplay.Name = "FilePathDisplay";
-            FilePathDisplay.ReadOnly = true;
-            FilePathDisplay.Size = new Size(454, 46);
-            FilePathDisplay.TabIndex = 11;
-            FilePathDisplay.TabStop = false;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Consolas", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label1.Location = new Point(8, 237);
-            label1.Margin = new Padding(4, 0, 4, 0);
-            label1.Name = "label1";
-            label1.Size = new Size(118, 24);
-            label1.TabIndex = 12;
-            label1.Text = "FilePath:";
-            // 
             // SettingGB
             // 
             SettingGB.Controls.Add(BackColourBorder);
             SettingGB.Controls.Add(BackColourEdit);
             SettingGB.Controls.Add(MidColourEdit);
-            SettingGB.Controls.Add(FilePathDisplay);
             SettingGB.Controls.Add(ForeColourEdit);
-            SettingGB.Controls.Add(label1);
-            SettingGB.Controls.Add(label2);
             SettingGB.Controls.Add(BackColourLabel);
             SettingGB.Controls.Add(MidColourBorder);
             SettingGB.Controls.Add(MidColourLabel);
@@ -102,7 +72,7 @@
             SettingGB.Margin = new Padding(4, 3, 4, 3);
             SettingGB.Name = "SettingGB";
             SettingGB.Padding = new Padding(4, 3, 4, 3);
-            SettingGB.Size = new Size(470, 326);
+            SettingGB.Size = new Size(470, 237);
             SettingGB.TabIndex = 13;
             SettingGB.TabStop = false;
             SettingGB.Text = "Settings";
@@ -170,17 +140,6 @@
             ForeColourEdit.Text = "Edit";
             ForeColourEdit.UseVisualStyleBackColor = false;
             ForeColourEdit.Click += ForeColourEdit_Click;
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Font = new Font("Consolas", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label2.Location = new Point(130, 242);
-            label2.Margin = new Padding(4, 0, 4, 0);
-            label2.Name = "label2";
-            label2.Size = new Size(105, 15);
-            label2.TabIndex = 13;
-            label2.Text = "(Non Editable)";
             // 
             // BackColourLabel
             // 
@@ -329,7 +288,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(64, 64, 64);
-            ClientSize = new Size(494, 461);
+            ClientSize = new Size(494, 375);
             Controls.Add(RestoreDefaults);
             Controls.Add(EditSetting);
             Controls.Add(SettingGB);
@@ -350,10 +309,7 @@
         }
 
         #endregion
-        private System.Windows.Forms.TextBox FilePathDisplay;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.GroupBox SettingGB;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.CheckBox LightModeToggle;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox MaxPerPageDisplay;

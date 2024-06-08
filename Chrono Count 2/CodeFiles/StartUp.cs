@@ -16,9 +16,8 @@ namespace ChronoCount2
     public class StartUp
     {
         // Runs at the beginning of the programme and determines what form to display:
-        private string dictPath = Chrono_Count_2.Properties.Settings.Default.dictPath;
-       
-        private string dataPath = "", settingsPath = "";
+        private string dataPath = $@"{Environment.CurrentDirectory}\ChronoCount2.csv";
+        private string settingsPath = $@"{Environment.CurrentDirectory}\Settings.json";
         readonly Form form;
         public StartUp() // Starts up the programme and imports settings
         {
@@ -50,29 +49,14 @@ namespace ChronoCount2
         }
         private void VerifyFilePath() // Create file if it does not exist yet 
         {
-            dictPath = Chrono_Count_2.Properties.Settings.Default.dictPath;
-            dataPath = dictPath + @"\ChronoCount2.csv";
-            settingsPath = dictPath + @"\Settings.json";
-
             if (!File.Exists(dataPath) || !File.Exists(settingsPath))
             {
-                MessageBox.Show("Files Not Found, Please Select a Path", "StartUp");
-
-                FolderBrowserDialog dialog = new();
-                if (dialog.ShowDialog() == DialogResult.OK)
+                using (var makeFile = new StreamWriter(dataPath, true)) { }; // Append set to true so user can keep data
+                using (var makeFile = new StreamWriter(settingsPath))
                 {
-                    string newFilePath = dialog.SelectedPath;
-
-                    Chrono_Count_2.Properties.Settings.Default.dictPath = newFilePath;
-                    Chrono_Count_2.Properties.Settings.Default.Save();
-
-                    using (var makeFile = new StreamWriter(newFilePath + @"\ChronoCount2.csv",true)) { }; // Append set to true so user can keep data
-                    using (var makeFile = new StreamWriter(newFilePath + @"\Settings.json")) 
-                    {
-                        string defaultJson = SetUpDefaultJSON();
-                        makeFile.Write(defaultJson);
-                    };
-                }
+                    string defaultJson = SetUpDefaultJSON();
+                    makeFile.Write(defaultJson);
+                };
 
                 VerifyFilePath(); // Recurs is the user fails to select a file
             }

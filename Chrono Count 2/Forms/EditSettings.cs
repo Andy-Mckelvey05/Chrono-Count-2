@@ -25,7 +25,7 @@ namespace ChronoCount2
         private void SetColours() // Sets the colour of the form 
         {
             Control[] foreColourItems = [ForeColourEdit, MidColourEdit, BackColourEdit, EditSetting, RestoreDefaults];
-            Control[] midColourItems = [FilePathDisplay, MaxPerPageDisplay, ForeColourBorder, MidColourBorder, BackColourBorder];
+            Control[] midColourItems = [MaxPerPageDisplay, ForeColourBorder, MidColourBorder, BackColourBorder];
             Control[] backColourItems = [this];
 
             ColourSetter colourSetter = new(settings, backColourItems, midColourItems, foreColourItems);
@@ -48,7 +48,6 @@ namespace ChronoCount2
         }
         private void DisplayCurrentSettings() // Displays the users current settings 
         {
-            FilePathDisplay.Text = Chrono_Count_2.Properties.Settings.Default.dictPath;
             LightModeToggle.Checked = settings.liteMode;
             MaxPerPageDisplay.Text = settings.maxPerPage.ToString();
 

@@ -22,17 +22,5 @@ namespace Chrono_Count_2.Properties {
                 return defaultInstance;
             }
         }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string dictPath {
-            get {
-                return ((string)(this["dictPath"]));
-            }
-            set {
-                this["dictPath"] = value;
-            }
-        }
     }
 }
